@@ -54,10 +54,10 @@ def main():
 if __name__ == "__main__":
     main()
 
-# def test_buffer_exchange_for_one_batch(logger,number_of_batches="1"):
-#     logger.info("Test Started")
-#     buffer_exchange_wrokflow = buffer_exchange(logger)
-#     buffer_exchange_wrokflow.buffer_exchange_workflow(logger,number_of_batches)
+def test_buffer_exchange_for_one_batch(logger,number_of_batches="1"):
+    logger.info("Test Started")
+    buffer_exchange_wrokflow = buffer_exchange(logger)
+    buffer_exchange_wrokflow.buffer_exchange_workflow(logger,number_of_batches)
 
 def test_buffer_exchange_for_two_batches(logger,number_of_batches="2"):
     logger.info("Test Started")
