@@ -1,7 +1,7 @@
 {
-  "artifacts_yaml_file": "C:\\Users\\labadmin\\Downloads\\epionly_master-649-99f7b7394\\e2e\\artifacts.yaml",
+  "artifacts_yaml_file": "C:\\Users\\labadmin\\Downloads\\pipeline-epionly-master-latest-654-afde5ae\\e2e\\artifacts.yaml",
   "optic_env_file_path": "C:\\ProgramData\\Optick\\optick.env",
-  "e2e_folder_path": "C:\\Users\\labadmin\\Downloads\\epionly_master-649-99f7b7394\\e2e\\",
+  "e2e_folder_path": "C:\\Users\\labadmin\\Downloads\\pipeline-epionly-master-latest-654-afde5ae\\e2e\\",
   "host": "acp-000epionly-ss.k8s-test.bi.ghdna.io",
   "username": "admin",
   "password":"ACSP@ssword1",

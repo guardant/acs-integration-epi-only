@@ -54,7 +54,6 @@ def main():
 if __name__ == "__main__":
     main()
 
-#print(dir(pytest_sqa_logging))
 # def test_buffer_exchange_for_one_batch(logger,number_of_batches="1"):
 #     logger.info("Test Started")
 #     buffer_exchange_wrokflow = buffer_exchange(logger)

@@ -32,6 +32,7 @@ class hamilton_ui:
                 checkbox.click_input()
         ok_button = popup_window.child_window(title="OK", control_type="Button")
         ok_button.click()
+        time.sleep(4)
 
     def enter_username_and_batchid(self,no_of_batches):
         app = Application(backend="uia").connect(title_re="User Name and Batch_ID Selection Window")
@@ -48,7 +49,7 @@ class hamilton_ui:
         start_button.click()
         # Wait for the button click to take effect
         app.wait_cpu_usage_lower(threshold=5, timeout=30, usage_interval=1.0)
-        print("**************************************")
+        time.sleep(3)
 
     def click_on_method_start_ok_button(self):
         app = Application(backend="uia").connect(title_re="Method Start")
@@ -70,6 +71,7 @@ class hamilton_ui:
         app.wait_cpu_usage_lower(threshold=5, timeout=30, usage_interval=1.0)
 
     def clicks_on_deck_setup_window(self, title):
+        time.sleep(3)
         app = Application(backend="uia").connect(title_re=title)
         load_deck_setup_window = app.window(title=title, control_type="Window")
         load_deck_setup_window.set_focus()

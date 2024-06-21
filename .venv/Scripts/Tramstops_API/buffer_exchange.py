@@ -41,24 +41,17 @@ class buffer_exchange:
         hamilton_ui.click_on_simulation_mode_ok_button(self)
         time.sleep(3)
         hamilton_ui.check_options_on_the_window(self, ["No Wait","No Pipetting","Stoppable Timers"])
-        time.sleep(10)
         hamilton_ui.enter_username_and_batchid(self,number_of_batches)
-        time.sleep(3)
         hamilton_ui.click_on_method_start_ok_button(self)
-        time.sleep(3)
         hamilton_ui.enter_value_on_bulk_reagent_scan_window(self,variables.get('buffer_exchange_etoh_lot_number'))
-        time.sleep(5)
-
         random_number = random.randint(10000, 99999)
         DWT_plate_id = config_values.dwt_plate_id + str(random_number)
         barcodes_usb_plate_id = helper.get_plate_from_labware(self, logger, config_values.host, config_values.username,
                                                               config_values.password,
                                                               variables.get('buffer_exchange_be_spri_plate_lot_number'))
         barcodes_universal_te_plate_id = helper.get_plate_from_labware(self, logger, config_values.host,
-                                                                       config_values.username,
-                                                                       config_values.password,
-                                                                       variables.get(
-                                                                           'buffer_exchange_be_te_plate_lot_number'))
+                                                                       config_values.username,config_values.password,
+                                                                       variables.get('buffer_exchange_be_te_plate_lot_number'))
         if number_of_batches == "1":
             hamilton_ui.clicks_on_deck_setup_window(self, config_values.epionly_be_load1_deck_setup)
             time.sleep(5)
