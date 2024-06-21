@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9a2ddd13-b8ac-46a8-9b56-0a2408d681b3" name="Changes" comment="" />
+    <list default="true" id="9a2ddd13-b8ac-46a8-9b56-0a2408d681b3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,13 +28,14 @@
   "keyToString": {
     "Python.automation.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "bufer__exchange",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/Users/labadmin/PycharmProjects/.venv/.venv/Scripts/logs"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\labadmin\PycharmProjects\.venv\.venv\Scripts\logs" />
       <recent name="C:\Users\labadmin\PycharmProjects\.venv\.venv\Lib" />
       <recent name="C:\Users\labadmin\PycharmProjects\.venv\.venv\Scripts" />
     </key>
