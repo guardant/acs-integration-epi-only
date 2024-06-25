@@ -29,16 +29,16 @@ class config_values:
     batch_id = config['batch_id']
     epionly_be_load1_deck_setup = config['epionly_be_load1_deck_setup']
     epionly_be_load2_deck_setup = config['epionly_be_load2_deck_setup']
+    epionly_mbd_setup_load11_deck_setup = config['epionly_mbd_setup_load11_deck_setup']
+    epionly_mbd_setup_load12_deck_setup = config['epionly_mbd_setup_load12_deck_setup']
     eto_plate = config['eto_plate']
-    stop_at_be_extraction_quant = config['stop_at_be_extraction_quant']
-    siriusLDT_be_extraction_quant_load3_deck_setup = config['siriusLDT_be_extraction_quant_load3_deck_setup']
+    stop_at_mbd_setup = config['stop_at_mbd_setup']
+    dwe_plate_id = config['dwe_plate_id']
     xqt_plate = config['xqt_plate']
     nocode = config['nocode']
     buffer_exchange_trampstop = config['buffer_exchange_trampstop']
+    mbd_setup_tramstop = config['mbd_setup_tramstop']
     stop_at_mbdc = config['stop_at_mbdc']
-    subtitle_project_for_mbdc = config['subtitle_project_for_mbdc']
-    version_for_mbdc = config['version_for_mbdc']
-    siriusLDT_mbdc_load3_deck_setup = config['siriusLDT_mbdc_load3_deck_setup']
     stop_at_library_prep = config['stop_at_library_prep']
     subtitle_project_for_library_prep = config['subtitle_project_for_library_prep']
     version_for_library_prep = config['version_for_library_prep']
@@ -362,12 +362,17 @@ class helper:
 
     def get_node_id(self,logger,host,username,password,pipeline_id,workflow_name):
         url = f"http://{host}/api/v2/pipelines/get_starting_nodes/?pipeline_id={pipeline_id}&selected_mode=default"
+        logger.info(f"URL for get node:::::{url}")
         response = requests.get(url, auth=(username, password))
         json_response = response.json()
+        logger.info(f"json from pipeline api to fetch the node::::::{json_response}")
+        logger.info(workflow_name)
+        time.sleep(3)
         node_id = None
-        for workflow_name in json_response:
-            if workflow_name['operation_name'] == "Buffer Exchange":
-                node_id = workflow_name['node_id']
+        for workflow_names in json_response:
+            logger.info(f"workflow_name['operation_name']:::{workflow_names['operation_name']}")
+            if workflow_names['operation_name'] == workflow_name:
+                node_id = workflow_names['node_id']
                 break
         logger.info(f"node_id::::{node_id}")
         return node_id
