@@ -54,5 +54,5 @@ Thumbs.db
 .idea
 .venv
 
-Scripts/logs/TestCaseLogs/
+.venv/Scripts/logs/TestCaseLogs/
 
