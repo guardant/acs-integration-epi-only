@@ -60,6 +60,7 @@ class hamilton_ui:
         app.wait_cpu_usage_lower(threshold=5, timeout=30, usage_interval=1.0)
 
     def enter_value_on_bulk_reagent_scan_window(self,plate_id):
+        time.sleep(5)
         app = Application(backend="uia").connect(title_re="Bulk Reagent Scan")
         bulk_reagent_scan_window = app.window(title="Bulk Reagent Scan", control_type="Window")
         bulk_reagent_scan_window.set_focus()
@@ -77,10 +78,11 @@ class hamilton_ui:
         load_deck_setup_window.set_focus()
         load_deck_setup_window.child_window(title="OK", control_type="Button").click()
 
-    def enter_simulated_barcodes(self,logger,window_name_buffer_exchange_pltCar,texts_to_enter):
+    def enter_simulated_barcodes(self,logger,window_name_pltCar,texts_to_enter):
         # Simulate Scanned Barcodes
-        app = Application(backend="uia").connect(title_re=window_name_buffer_exchange_pltCar)
-        simulate_scanned_barcodes_window = app.window(title=window_name_buffer_exchange_pltCar, control_type="Window")
+        time.sleep(5)
+        app = Application(backend="uia").connect(title_re=window_name_pltCar)
+        simulate_scanned_barcodes_window = app.window(title=window_name_pltCar, control_type="Window")
         simulate_scanned_barcodes_window.set_focus()
         pane = simulate_scanned_barcodes_window.child_window(title="Custom1", control_type="Pane")
         help_button = simulate_scanned_barcodes_window.child_window(title="Help", control_type="Button")

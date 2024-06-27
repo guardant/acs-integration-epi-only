@@ -103,4 +103,3 @@ class mbd_setup:
             output_plates = helper.get_plates_for_completed_instrument_job(self, logger, config_values.host, config_values.username,config_values.password, 'BE Elution Plate')
             hamilton_ui.enter_simulated_barcodes(self, logger, config_values.window_name_pltCar2,texts_to_enter=[config_values.nocode, barcodes_fcr_plate_id[0],
                                                                  barcodes_fcr_plate_id[1], output_plates[0], output_plates[1]])
-        helper.check_if_method_is_complete(self,  logger, config_values.host, config_values.username, config_values.password)

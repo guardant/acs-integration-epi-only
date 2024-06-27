@@ -21,9 +21,12 @@ class config_values:
     username = config['username']
     password = config['password']
     dwt_plate_id = config['dwt_plate_id']
-    window_name_buffer_exchange_pltCar3 = config['window_name_buffer_exchange_pltCar3']
-    window_name_buffer_exchange_pltCar2 = config['window_name_buffer_exchange_pltCar2']
-    window_name_buffer_exchange_pltCar1 = config['window_name_buffer_exchange_pltCar1']
+    window_name_pltCar3 = config['window_name_pltCar3']
+    window_name_pltCar2 = config['window_name_pltCar2']
+    window_name_pltCar1 = config['window_name_pltCar1']
+    window_name_tube1 = config['window_name_tube1']
+    window_name_tube2 = config['window_name_tube2']
+    window_name_tube3 = config['window_name_tube3']
     stop_at_buffer_exchange = config['stop_at_buffer_exchange']
     operator_id = config['operator_id']
     batch_id = config['batch_id']
@@ -31,8 +34,12 @@ class config_values:
     epionly_be_load2_deck_setup = config['epionly_be_load2_deck_setup']
     epionly_mbd_setup_load11_deck_setup = config['epionly_mbd_setup_load11_deck_setup']
     epionly_mbd_setup_load12_deck_setup = config['epionly_mbd_setup_load12_deck_setup']
+    epionly_mbd_setup_load21_deck_setup = config['epionly_mbd_setup_load21_deck_setup']
+    epionly_mbd_setup_load22_deck_setup = config['epionly_mbd_setup_load22_deck_setup']
     eto_plate = config['eto_plate']
     stop_at_mbd_setup = config['stop_at_mbd_setup']
+    stop_at_mbd_wash = config['stop_at_mbd_wash']
+    epionly_mbd_wash_load1_deck_setup = config['epionly_mbd_wash_load1_deck_setup']
     dwe_plate_id = config['dwe_plate_id']
     xqt_plate = config['xqt_plate']
     nocode = config['nocode']
@@ -438,9 +445,10 @@ class helper:
             uuid = json_response['results'][0]['uuid']
             logger.info(f"instrument job uuid for Hamilton:::::{uuid}")
 
-    def get_ex_elution_plates(self,logger,host,username,password):
-        query_params = {'latest_operation_name' : 'cfDNA Extraction Upload'}
+    def get_ex_elution_plates(self,logger,host,username,password,operation_name):
+        query_params = {'latest_operation_name' : operation_name}
         url = f"http://{host}/api/v2/pipeline_runs/"
+        logger.info(f"url:::::::{url}")
         response = requests.get(url, auth=(username, password), params = query_params)
         if response.json():
             json_response = response.json()
@@ -450,21 +458,48 @@ class helper:
             logger.info(f"ex elution plate id:::::{plate_id1} and {plate_id2}")
         return plate_id1, plate_id2
 
-    # def get_be_output_samples(self,logger,host,username,password):
-    #     tag_components = ["artifact_set", "name", config_values.buffer_exchange_trampstop]
-    #     tag = b",".join(map(lambda tag_part: base64.b64encode(tag_part.encode()), tag_components))
-    #     url = f"http://{host}/api/v1/chain_of_custody/"
-    #     chain_of_custody_reponse = requests.get(url, auth=(username, password),params = {'tag': tag})
-    #     events = chain_of_custody_reponse.json().get('results')
-    #
-    #     be_opertaion_id = None
-    #     for event in events:
-    #         if event['operation_name'] == config_values.buffer_exchange_trampstop:
-    #             be_operation_id = event['operation_id']
-    #             break
-    #     assert be_operation_id
-    #
-    #     be_operation_id_details = helper.get_operation_details_by_uuid(self, logger, host, username, password,
-    #                                                                  be_operation_id)
-    #     logger.info(f"be elution plates for buffer exchange:::::{be_operation_id_details.outputs[0].value['tubes']}")
-    #     return be_operation_id_details.outputs[0].value['tubes']
+    def get_plate_from_control_lots(self,logger,host,username,password,control_lot_number):
+        url = f"http://{host}/api/v2/control_lots/?is_imported=true&lot_number={control_lot_number}"
+        response = requests.get(url, auth=(username, password))
+        json_response = response.json()
+        uuid_for_labware = json_response['results'][0]['uuid']
+        url = f"http://{host}/api/v2/control_lots/{uuid_for_labware}/"
+        response = requests.get(url, auth=(username, password))
+        json_response = response.json()
+        # Extract the barcodes
+        barcodes = [item['barcode'] for item in json_response['controls']]
+        logger.info(f"barcode from controls::::{barcodes}")
+        return barcodes
+
+    def get_plates_for_completed_instrument_job(self,logger,host,username,password,plate_type):
+        time.sleep(5)
+        url=f"http://{host}/api/v1/instrument_jobs/?state=completed"
+        response = requests.get(url, auth=(username, password))
+        json_response = response.json()
+        uuid = json_response['results'][0]['uuid']
+        url = f"http://{host}/api/v1/instrument_jobs/{uuid}/"
+        logger.info(f"url for instrument jobs with uuid:::{url}")
+        response = requests.get(url, auth=(username, password))
+        barcodes = []
+        json_response = response.json()
+        for item in json_response.get("outputs", {}).get("sample_sets", []):
+            if item.get("name") == plate_type:
+                barcodes.append(item.get("barcode"))
+        logger.info(f"barcode::::{barcodes}")
+        return barcodes
+
+    def check_if_method_is_complete(self,logger,host,username,password):
+        time.sleep(10)
+        url = f"http://{host}/api/v1/instrument_jobs/?state=completed"
+        response = requests.get(url, auth=(username, password))
+        json_response = response.json()
+        uuid = json_response['results'][0]['uuid']
+        url = f"http://{host}/api/v1/instrument_jobs/{uuid}/"
+        logger.info(f"url for instrument jobs with uuid:::{url}")
+        response = requests.get(url, auth=(username, password))
+        barcodes = []
+        json_response = response.json()
+        assert json_response.get("process_description") == "Method Complete", "Process description is not 'Method Complete'"
+        logger.info("Assertion passed: Process description is 'Method Complete'")
+        assert json_response.get("percent_complete") == 100, "Percent complete is not 100"
+        logger.info("Assertion passed: Percent complete is '100'")
