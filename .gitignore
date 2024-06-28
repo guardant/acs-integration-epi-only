@@ -12,7 +12,7 @@
 .DS_Store
 
 # PyCharm
-../ACS_Integration/.idea/
+../.idea/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
