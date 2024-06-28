@@ -35,31 +35,31 @@ def test_buffer_exchange_for_one_batch(logger,number_of_batches="1"):
     buffer_exchange_workflow = buffer_exchange(logger)
     buffer_exchange_workflow.buffer_exchange_workflow(logger,number_of_batches)
 
-# def test_buffer_exchange_for_two_batches(logger,number_of_batches="2"):
-#     logger.info("Test Started")
-#     buffer_exchange_workflow = buffer_exchange(logger)
-#     buffer_exchange_workflow.buffer_exchange_workflow(logger,number_of_batches)
-#
-# def test_mbd_setup_for_one_batch(logger,number_of_batches="1"):
-#     logger.info("Test Started")
-#     mbd_setup_workflow = mbd_setup(logger)
-#     mbd_setup_workflow.mbd_setup_workflow(logger,number_of_batches)
-#
-# def test_mbd_setup_for_two_batch(logger,number_of_batches="2"):
-#     logger.info("Test Started")
-#     mbd_setup_workflow = mbd_setup(logger)
-#     mbd_setup_workflow.mbd_setup_workflow(logger,number_of_batches)
-#
-# def test_mbd_wash_for_one_batch(logger,number_of_batches="1"):
-#     logger.info("Test Started")
-#     mbd_wash_workflow = mbd_wash(logger)
-#     mbd_wash_workflow.mbd_wash_workflow(logger,number_of_batches)
-#
-# def test_mbd_wash_for_two_batch(logger,number_of_batches="2"):
-#     logger.info("Test Started")
-#     mbd_wash_workflow = mbd_wash(logger)
-#     mbd_wash_workflow.mbd_wash_workflow(logger,number_of_batches)
-#
+def test_buffer_exchange_for_two_batches(logger,number_of_batches="2"):
+    logger.info("Test Started")
+    buffer_exchange_workflow = buffer_exchange(logger)
+    buffer_exchange_workflow.buffer_exchange_workflow(logger,number_of_batches)
+
+def test_mbd_setup_for_one_batch(logger,number_of_batches="1"):
+    logger.info("Test Started")
+    mbd_setup_workflow = mbd_setup(logger)
+    mbd_setup_workflow.mbd_setup_workflow(logger,number_of_batches)
+
+def test_mbd_setup_for_two_batch(logger,number_of_batches="2"):
+    logger.info("Test Started")
+    mbd_setup_workflow = mbd_setup(logger)
+    mbd_setup_workflow.mbd_setup_workflow(logger,number_of_batches)
+
+def test_mbd_wash_for_one_batch(logger,number_of_batches="1"):
+    logger.info("Test Started")
+    mbd_wash_workflow = mbd_wash(logger)
+    mbd_wash_workflow.mbd_wash_workflow(logger,number_of_batches)
+
+def test_mbd_wash_for_two_batch(logger,number_of_batches="2"):
+    logger.info("Test Started")
+    mbd_wash_workflow = mbd_wash(logger)
+    mbd_wash_workflow.mbd_wash_workflow(logger,number_of_batches)
+
 # def test_mbd_cleanup_for_one_batch(logger,number_of_batches="1"):
 #     logger.info("Test Started")
 #     mbd_cleanup_workflow = mbd_cleanup(logger)
